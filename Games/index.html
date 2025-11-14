@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Game List — Table</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #9aa4b2;
+        --accent: #06b6d4;
+        --glass: rgba(255, 255, 255, 0.03);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        background: linear-gradient(180deg, #071022 0%, #071b2a 100%);
+        color: #e6eef6;
+        padding: 32px;
+        -webkit-font-smoothing: antialiased;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(
+          180deg,
+          var(--card),
+          rgba(11, 18, 32, 0.85)
+        );
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      h1 {
+        margin: 0 0 12px 0;
+        font-size: 20px;
+      }
+      p.lead {
+        margin: 0 0 18px 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .table-wrap {
+        overflow: auto;
+        border-radius: 8px;
+        background: var(--glass);
+        padding: 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 640px;
+      }
+      thead th {
+        text-align: left;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      tbody td {
+        padding: 12px;
+        vertical-align: middle;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.02);
+      }
+      tbody tr:hover {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+      }
+
+      .sno {
+        width: 56px;
+        font-weight: 600;
+        color: #cfeff7;
+      }
+      .game-name {
+        font-weight: 600;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      a.play-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        color: var(--accent);
+        font-weight: 600;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      a.play-btn:focus {
+        outline: 3px solid rgba(6, 182, 212, 0.14);
+        outline-offset: 3px;
+      }
+      a.play-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(6, 182, 212, 0.08);
+      }
+
+      /* small responsive tweaks */
+      @media (max-width: 700px) {
+        .container {
+          padding: 14px;
+        }
+        thead th {
+          font-size: 11px;
+        }
+        .sno {
+          width: 40px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Games — Play List</h1>
+      <p class="lead">
+        Simple responsive HTML + CSS table containing 7 games. Each "Play" link
+        opens in a new tab.
+      </p>
+
+      <div class="table-wrap">
+        <table aria-label="Games table">
+          <thead>
+            <tr>
+              <th scope="col">S. No</th>
+              <th scope="col">Name of Game</th>
+              <th scope="col">Play Game</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sno">1</td>
+              <td class="game-name">Click Count</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="Click count/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play Click count ↗</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="sno">2</td>
+              <td class="game-name">Color Guess</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="Cdor Guess/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play Color Guess ↗</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="sno">3</td>
+              <td class="game-name">Whack-a-Mole</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="whack-a-Mole/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play Whack-a-Mole ↗</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="sno">4</td>
+              <td class="game-name">Typing-Test</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="Typeingmaster/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play Typeingmaster ↗</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="sno">5</td>
+              <td class="game-name">Tic-Tac-Toe</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="tic-tac-toe/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play X/O ↗</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="sno">6</td>
+              <td class="game-name">Tic-Tac-Toe 6X6</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="tic-tac-toe=6x6/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play X/O 6X6 ↗</a
+                >
+              </td>
+            </tr>
+            <tr>
+              <td class="sno">7</td>
+              <td class="game-name">Tic-Tac-Toe 9X9</td>
+              <td>
+                <a
+                  class="play-btn"
+                  href="tic-tac-toe=9X9/index.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Play X/O 9X9 ↗</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="muted" style="margin-top: 14px">
+        Tip: The games are at initlia phase so it has bugs or loops so please forget this.
+      </p>
+    </div>
+  </body>
+</html>
