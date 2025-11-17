@@ -174,6 +174,7 @@ function bonk(event){
     
         if(fast<max){
         max = fast;
+        console.log(max);
         fastClick.textContent = `${max}ms`
      }
     
