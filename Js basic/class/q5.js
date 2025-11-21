@@ -31,7 +31,7 @@
 
 function rept(arr1){
     let firstR = 0;
-    let lastRR = 0;
+    let lastR = 0;
     for(let i = 0; i<arr1.length;i++){
 
         let count = 0;
