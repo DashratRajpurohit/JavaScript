@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Feature-rich Form — Multi-step, Validation, Upload, Preview</title>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --card: #0b1220;
+            --accent: #3b82f6;
+            --muted: #94a3b8;
+            --ok: #16a34a;
+            --err: #ef4444;
+            --glass: rgba(255, 255, 255, 0.03);
+            --radius: 14px;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #021028 0%, #091426 60%);
+            color: #e6eef8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px
+        }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 20px
+        }
+
+        @media (max-width:980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side {
+                order: -1
+            }
+        }
+
+        /* LEFT - the form */
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px
+        }
+
+        h1 {
+            margin: 0 0 6px;
+            font-size: 20px
+        }
+
+        p.lead {
+            margin: 0 0 16px;
+            color: var(--muted)
+        }
+
+        .steps {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 18px
+        }
+
+        .step {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            background: var(--glass);
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .step.active {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.12), rgba(59, 130, 246, 0.04));
+            color: var(--accent);
+            font-weight: 600
+        }
+
+        form .row {
+            display: flex;
+            gap: 12px
+        }
+
+        form .col {
+            flex: 1
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: transparent;
+            color: inherit;
+            font-size: 14px
+        }
+
+        textarea {
+            min-height: 88px;
+            resize: vertical
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 6px
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer
+        }
+
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06)
+        }
+
+        .btn[disabled] {
+            opacity: 0.45;
+            cursor: not-allowed
+        }
+
+        .progress {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .progress>i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #60a5fa);
+            width: 0%;
+            transition: width 400ms cubic-bezier(.2, .9, .3, 1)
+        }
+
+        /* Right side preview / summary */
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px
+        }
+
+        .summary {
+            padding: 16px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.02)
+        }
+
+        .summary h3 {
+            margin: 0 0 8px
+        }
+
+        .field {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.02)
+        }
+
+        /* file drop */
+        .drop {
+            border: 2px dashed rgba(255, 255, 255, 0.04);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center
+        }
+
+        .thumbs {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap
+        }
+
+        .thumb {
+            width: 92px;
+            height: 68px;
+            background: #031226;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative
+        }
+
+        .thumb img,
+        .thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .thumb .remove {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+            padding: 4px;
+            font-size: 12px;
+            cursor: pointer
+        }
+
+        /* signature */
+        .signature {
+            background: #071022;
+            border-radius: 8px;
+            padding: 8px
+        }
+
+        canvas {
+            background: transparent;
+            border-radius: 6px;
+            width: 100%;
+            height: 120px
+        }
+
+        /* small helpers */
+        .small {
+            font-size: 12px;
+            color: var(--muted)
+        }
+
+        .error {
+            color: var(--err);
+            font-size: 13px
+        }
+
+        .success {
+            color: var(--ok);
+            font-size: 13px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="grid">
+            <div class="card">
+                <h1>Application Form</h1>
+                <p class="lead">Multi-step form demo — validation, drag & drop upload, signature, conditional fields,
+                    summary.</p>
+
+                <div class="steps" aria-hidden>
+                    <div class="step active" id="stepLabel0">1. Personal</div>
+                    <div class="step" id="stepLabel1">2. Details</div>
+                    <div class="step" id="stepLabel2">3. Upload</div>
+                    <div class="step" id="stepLabel3">4. Review</div>
+                </div>
+
+                <div class="progress" aria-hidden>
+                    <i id="prog"></i>
+                </div>
+
+                <form id="form" novalidate>
+                    <!-- STEP 1 -->
+                    <fieldset data-step="0">
+                        <div class="row">
+                            <div class="col">
+                                <label for="name">Full name</label>
+                                <input id="name" name="name" required minlength="3" placeholder="Jane Doe" />
+                                <div class="hint">Required. Enter first and last name.</div>
+                                <div class="error" data-for="name"></div>
+                            </div>
+                            <div class="col">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" required placeholder="you@company.com" />
+                                <div class="error" data-for="email"></div>
+                            </div>
+                        </div>
+
+                        <div style="height:12px"></div>
+
+                        <label for="phone">Phone</label>
+                        <input id="phone" name="phone" placeholder="+91 98765 43210" pattern="^\\+?[0-9 \-]{7,20}$" />
+                        <div class="hint">Optional but helpful. Accepts digits, spaces, dashes and +.</div>
+                    </fieldset>
+
+                    <!-- STEP 2 -->
+                    <fieldset data-step="1" hidden>
+                        <div class="row">
+                            <div class="col">
+                                <label for="role">Applying for</label>
+                                <select id="role" name="role">
+                                    <option value="developer">Developer</option>
+                                    <option value="designer">Designer</option>
+                                    <option value="pm">Product Manager</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="exp">Experience (years)</label>
+                                <input id="exp" name="exp" type="number" min="0" max="50" value="1" />
+                            </div>
+                        </div>
+
+                        <div style="height:12px"></div>
+
+                        <label>Do you have a portfolio?</label>
+                        <div style="display:flex;gap:8px;margin-top:8px">
+                            <label><input type="radio" name="portfolio" value="yes"> Yes</label>
+                            <label><input type="radio" name="portfolio" value="no" checked> No</label>
+                        </div>
+
+                        <div id="portfolioURL" style="margin-top:12px;display:none">
+                            <label for="port">Portfolio URL</label>
+                            <input id="port" name="port" placeholder="https://your.site" />
+                            <div class="hint">Shown only if you said Yes.</div>
+                        </div>
+
+                        <div style="height:12px"></div>
+
+                        <label for="bio">Short bio</label>
+                        <textarea id="bio" name="bio" maxlength="300"
+                            placeholder="One paragraph about your background"></textarea>
+                        <div class="small" id="bioCount">0 / 300</div>
+                    </fieldset>
+
+                    <!-- STEP 3 -->
+                    <fieldset data-step="2" hidden>
+                        <label>Resume / CV (PDF preferred)</label>
+                        <div class="drop" id="dropArea">Drag & drop files here or <button class="btn ghost"
+                                type="button" id="pick">Choose</button>
+                            <input id="files" type="file" accept="image/*,video/*,application/pdf" multiple
+                                style="display:none" />
+                            <div class="hint">Images will show thumbnails. Videos will show a playable preview. PDFs
+                                show filename.</div>
+                            <div class="thumbs" id="thumbs"></div>
+                        </div>
+
+                        <div style="height:12px"></div>
+
+                        <label>Signature (draw below)</label>
+                        <div class="signature">
+                            <canvas id="sig"></canvas>
+                            <div style="display:flex;gap:8px;margin-top:8px">
+                                <button type="button" class="btn ghost" id="clearSig">Clear</button>
+                                <div class="small" style="margin-left:auto">Use mouse or touch to sign</div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- STEP 4 -->
+                    <fieldset data-step="3" hidden>
+                        <h3>Review & Submit</h3>
+                        <div class="summary" id="review"></div>
+                    </fieldset>
+
+                    <div class="controls">
+                        <div>
+                            <button type="button" id="prev" class="btn ghost" disabled>Previous</button>
+                            <button type="button" id="next" class="btn">Next</button>
+                        </div>
+                        <div class="small" id="status"></div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="side">
+                <div class="summary card">
+                    <h3>Live Summary</h3>
+                    <div class="field">
+                        <div class="small">Name</div>
+                        <div id="sName">—</div>
+                    </div>
+                    <div class="field">
+                        <div class="small">Email</div>
+                        <div id="sEmail">—</div>
+                    </div>
+                    <div class="field">
+                        <div class="small">Role</div>
+                        <div id="sRole">—</div>
+                    </div>
+                    <div class="field">
+                        <div class="small">Files</div>
+                        <div id="sFiles">0</div>
+                    </div>
+                    <div class="field">
+                        <div class="small">Signed</div>
+                        <div id="sSig">No</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Tips</h3>
+                    <p class="small">This demo includes client-side validation, conditional fields (portfolio), file
+                        drag & drop, thumbnail previews, and a signature canvas. Submit simulates a server call and
+                        displays a success message.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- helpers
+        const q = (sel, ctx = document) => ctx.querySelector(sel);
+        const qa = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+        let state = { step: 0, files: [], sigData: null };
+        const totalSteps = 4;
+
+        function updateSteps() {
+            qa('.step').forEach((el, i) => el.classList.toggle('active', i === state.step));
+            const pct = Math.round((state.step) / (totalSteps - 1) * 100);
+            q('#prog').style.width = pct + '%';
+            q('#prev').disabled = state.step === 0;
+            q('#next').textContent = state.step === totalSteps - 1 ? 'Submit' : 'Next';
+            qa('fieldset').forEach((fs, i) => fs.hidden = i !== state.step);
+        }
+
+        // validation
+        function showError(name, msg) {
+            const el = q(`[data-for="${name}"]`);
+            if (el) el.textContent = msg || '';
+        }
+        function validateStep(idx) {
+            // basic validation per step
+            let ok = true;
+            if (idx === 0) {
+                const name = q('#name').value.trim();
+                const email = q('#email').value.trim();
+                if (name.length < 3) { showError('name', 'Name must be at least 3 characters'); ok = false } else showError('name', '');
+                if (email && !/^\S+@\S+\.\S+$/.test(email)) { showError('email', 'Enter a valid email'); ok = false } else showError('email', '');
+            }
+            if (idx === 2) {
+                // require at least one file or signature
+                if (state.files.length === 0 && !state.sigData) { q('#status').textContent = 'Attach file or sign to continue'; ok = false } else q('#status').textContent = '';
+            }
+            return ok;
+        }
+
+        // next/prev
+        q('#next').addEventListener('click', () => {
+            if (state.step === totalSteps - 1) { submitForm(); return }
+            if (!validateStep(state.step)) return;
+            state.step = Math.min(totalSteps - 1, state.step + 1); updateSteps();
+            if (state.step === 3) renderReview();
+        });
+        q('#prev').addEventListener('click', () => { state.step = Math.max(0, state.step - 1); updateSteps(); });
+
+        // live summary updates
+        function refreshSummary() {
+            q('#sName').textContent = q('#name').value || '—';
+            q('#sEmail').textContent = q('#email').value || '—';
+            q('#sRole').textContent = q('#role').value || '—';
+            q('#sFiles').textContent = state.files.length;
+            q('#sSig').textContent = state.sigData ? 'Yes' : 'No';
+        }
+        qa('input,textarea,select').forEach(i => i.addEventListener('input', () => { refreshSummary() }));
+
+        // portfolio conditional
+        qa('input[name="portfolio"]').forEach(r => r.addEventListener('change', e => {
+            const yes = e.target.value === 'yes'; q('#portfolioURL').style.display = yes ? 'block' : 'none';
+        }));
+
+        // bio counter
+        q('#bio').addEventListener('input', () => { q('#bioCount').textContent = q('#bio').value.length + ' / 300' });
+
+        // drag & drop
+        const drop = q('#dropArea');
+        ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.style.borderColor = 'rgba(59,130,246,0.6)'; }));
+        ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.style.borderColor = 'transparent'; }));
+
+        q('#pick').addEventListener('click', () => q('#files').click());
+        q('#files').addEventListener('change', e => handleFiles(e.target.files));
+
+        drop.addEventListener('drop', e => { handleFiles(e.dataTransfer.files); });
+
+        function handleFiles(list) {
+            const arr = Array.from(list);
+            arr.forEach(f => {
+                const id = Math.random().toString(36).slice(2, 9);
+                const fileObj = { id, file: f };
+                state.files.push(fileObj);
+                renderThumb(fileObj);
+            });
+            refreshSummary();
+        }
+
+        function renderThumb(obj) {
+            const f = obj.file;
+            const container = q('#thumbs');
+            const box = document.createElement('div'); box.className = 'thumb'; box.dataset.id = obj.id;
+            const rem = document.createElement('div'); rem.className = 'remove'; rem.textContent = '✕'; rem.title = 'Remove file'; rem.addEventListener('click', () => {
+                state.files = state.files.filter(x => x.id !== obj.id); box.remove(); refreshSummary();
+            });
+            box.appendChild(rem);
+            if (f.type.startsWith('image/')) {
+                const img = document.createElement('img'); img.src = URL.createObjectURL(f); box.appendChild(img);
+            } else if (f.type.startsWith('video/')) {
+                const v = document.createElement('video'); v.src = URL.createObjectURL(f); v.controls = true; box.appendChild(v);
+            } else {
+                const p = document.createElement('div'); p.style.padding = '8px'; p.style.fontSize = '12px'; p.textContent = f.name; box.appendChild(p);
+            }
+            container.appendChild(box);
+        }
+
+        // signature canvas
+        const canvas = q('#sig'); const ctx = canvas.getContext('2d');
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * devicePixelRatio; canvas.height = rect.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio);
+            ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.lineWidth = 2; ctx.globalCompositeOperation = 'source-over';
+        }
+        resizeCanvas(); window.addEventListener('resize', () => { resizeCanvas(); if (state.sigData) drawFromData(state.sigData) });
+        let drawing = false; let path = [];
+        canvas.addEventListener('pointerdown', e => { drawing = true; path.push([]); const p = getPos(e); path[path.length - 1].push(p); drawPoint(p); });
+        canvas.addEventListener('pointermove', e => { if (!drawing) return; const p = getPos(e); path[path.length - 1].push(p); drawPoint(p); });
+        canvas.addEventListener('pointerup', e => { drawing = false; state.sigData = JSON.stringify(path); refreshSummary(); });
+        canvas.addEventListener('pointercancel', () => { drawing = false });
+        function getPos(e) { const r = canvas.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+        function drawPoint(p) { const pts = path[path.length - 1]; if (pts.length < 2) return; const a = pts[pts.length - 2]; const b = pts[pts.length - 1]; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.strokeStyle = '#fff'; ctx.stroke(); }
+        function drawFromData(json) { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.save(); ctx.scale(1, 1); const data = typeof json === 'string' ? JSON.parse(json) : json; data.forEach(stroke => { for (let i = 1; i < stroke.length; i++) { ctx.beginPath(); ctx.moveTo(stroke[i - 1][0], stroke[i - 1][1]); ctx.lineTo(stroke[i][0], stroke[i][1]); ctx.strokeStyle = '#fff'; ctx.stroke(); } }); ctx.restore(); }
+        q('#clearSig').addEventListener('click', () => { ctx.clearRect(0, 0, canvas.width, canvas.height); state.sigData = null; refreshSummary(); });
+
+        // render review
+        function renderReview() {
+            const out = q('#review'); out.innerHTML = '';
+            const add = (k, v) => { const d = document.createElement('div'); d.style.marginBottom = '8px'; d.innerHTML = `<strong>${k}</strong><div class="small">${v || '—'}</div>`; out.appendChild(d); };
+            add('Name', q('#name').value);
+            add('Email', q('#email').value);
+            add('Phone', q('#phone').value);
+            add('Role', q('#role').value);
+            add('Experience', q('#exp').value + ' years');
+            add('Bio', q('#bio').value);
+            add('Files', state.files.length + ' file(s)');
+            if (state.files.length) { const list = document.createElement('ul'); state.files.forEach(f => { const li = document.createElement('li'); li.textContent = f.file.name; list.appendChild(li); }); out.appendChild(list); }
+            add('Signed', state.sigData ? 'Yes' : 'No');
+        }
+
+        // submit (simulated)
+        function submitForm() {
+            if (!validateStep(state.step)) return;
+            q('#next').disabled = true; q('#prev').disabled = true; q('#status').textContent = 'Submitting...';
+            setTimeout(() => {
+                q('#status').textContent = ''; q('#next').disabled = false; q('#prev').disabled = false;
+                alert('Form submitted — this is a demo. In real use you would POST the form & files.');
+                // reset demo
+                document.getElementById('form').reset(); state = { step: 0, files: [], sigData: null }; q('#thumbs').innerHTML = ''; ctx.clearRect(0, 0, canvas.width, canvas.height); updateSteps(); refreshSummary();
+            }, 900);
+        }
+
+        // init
+        updateSteps(); refreshSummary();
+    </script>
+</body>
+
+</html>

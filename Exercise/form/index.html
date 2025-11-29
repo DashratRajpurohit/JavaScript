@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Basic Form </title>
+    <style>
+       * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #f5f5f5;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  background: #fff;
+  padding: 25px 30px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 8px;
+  box-shadow: 10 20px 50px rgba(0,0,0,0.1);
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #0077ff;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #005fcc;
+}
+
+    </style>
+</head>
+
+<body>
+    <form>
+    <h1>Basic Form</h1>
+
+    <label for="nameInput">Name:</label>
+    <input id="nameInput" type="text" />
+
+    <br /><br />
+
+    <label for="emailInput">Email:</label>
+    <input id="emailInput" type="email" />
+
+    <br /><br />
+
+    <label for="ageInput">Age:</label>
+    <input id="ageInput" type="number" />
+
+    <label for="addInput">Address:</label>
+    <textarea name="Address" id="addInput"></textarea>
+
+    <br /><br />
+
+    <button id="submitBtn">Submit</button>
+
+    <script src="index.js"></script>
+    </form>
+</body>
+
+</html>

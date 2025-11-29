@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h2>list as you input</h2>
+    <ol class="list"></ol>
+
+    <input type="text" id="tex">
+    <button class="add">Add-Item</button>
+
+    <p>for delete any list type it no.</p>
+
+    <input type="text" id="del-tex" placeholder="enter no. to delete" >
+    <button class="add-no">Delete</button>
+
+
+    <script>
+        const list = document.querySelector('.list')
+        const text = document.querySelector('#tex')
+        const add = document.querySelector('.add')
+        const num = document.querySelector('.add-no')
+        const numTex =document.querySelector('#del-tex')
+
+        var count = 1;
+        var stor;
+
+        add.addEventListener('click', function(){
+            stor = document.createElement('li');
+            stor.textContent =text.value;
+            list.appendChild(stor);
+            text.value = "";
+            stor.setAttribute('class',count)
+            count++;
+            console.log(stor);
+        })
+        num.addEventListener('click', function(){
+            if(stor.classList.contains === numTex.value){
+                
+                console.log("working")
+
+            }
+        })
+
+
+    </script>
+</body>
+</html>

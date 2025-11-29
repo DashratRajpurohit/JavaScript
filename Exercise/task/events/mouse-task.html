@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hover the box</h1>
+
+    <div id="hoverCard2" style="width: 50%;height: 20vh;
+    border: 2px solid; background-color: rgb(216, 201, 180);">
+        mover me
+    </div>
+
+     <br><br>
+    <div id="hoverCard" style="width: 50%;height: 20vh;
+    border: 2px solid; background-color: rgb(229, 173, 255); display: flex;">
+        <div class="intC" style="border: 2px solid; width: 20%;">
+            <h1>Inside</h1>
+            <h1 class="inCount">0</h1>
+        </div>
+        <div class="intC" style="border: 2px solid; width: 20%;">
+            <h1>Outside</h1>
+            <h1 class="outCount">0</h1>
+        </div>
+        <h1></h1>
+    </div>
+   
+    
+    <h2>content</h2>
+    <button class="save">Save</button>
+
+
+
+
+    <script>
+        var card = document.querySelector("#hoverCard");
+        var card2 = document.querySelector("#hoverCard2");
+        var saveBtn = document.querySelector(".save");
+        var inC = document.querySelector(".inCount");
+        var outC = document.querySelector(".outCount");
+        var x;
+        var y;
+        var in1=0;
+        var out1=0;
+
+
+         card2.addEventListener("mousemove", ()=>{
+           x= event.clientX
+            y= event.clientY
+            console.log("X_Y "+x,y)
+            card.style.backgroundColor = `rgb(${x},${y},150)`;
+        })
+
+        function randomRGB() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        return `rgb(${r}, ${g}, ${b})`;
+}
+
+        card.addEventListener("mouseenter", ()=>{
+            in1++;
+            inC.textContent =in1
+            card.style.backgroundColor = randomRGB();;
+        })
+        card.addEventListener("mouseleave", ()=>{
+            out1++;
+            outC.textContent = out1
+            card.style.backgroundColor =randomRGB();;
+        })
+
+        saveBtn.addEventListener('click', ()=>{
+            localStorage.setItem("inc",in1)
+            localStorage.setItem("outc",out1)
+            alert("Data Stored Sucess");
+        })
+
+       
+
+        
+    </script>
+</body>
+</html>

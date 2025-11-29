@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hover the box</h1>
+    <div id="hoverCard" style="width: 50%;height: 20vh;
+    border: 2px solid; background-color: antiquewhite;">
+        mover me
+    </div>
+    <h2>content</h2>
+    <button>Submit</button>
+    <script>
+        var card = document.querySelector("#hoverCard");
+
+        card.addEventListener("mouseenter", ()=>{
+            card.style.backgroundColor = "red";
+        })
+        card.addEventListener("mouseleave", ()=>{
+            card.style.backgroundColor = " yellow";
+        })
+
+        card.addEventListener("mousemove", ()=>{
+            console.log("X- "+event.clientX+"Y- "+event.clientY)
+        })
+
+        document.addEventListener('click', (event)=>{
+            event.target.setAttribute("id", "hoverCard");
+            console.log(event.target.getAttribute("id"));
+            console.log(card)
+        });
+
+        document.addEventListener('wheel', (event)=>{
+           if(event.deltaY>0){
+            console.log("Downword")
+           }
+           else if(event.deltaY<0){
+            console.log("UPword")
+           }
+           else {
+            console.log("Static")
+           }
+        });
+        
+    </script>
+</body>
+</html>

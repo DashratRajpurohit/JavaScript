@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h2>list as you input</h2>
+    <ul class="list"></ul>
+
+    <input type="text" id="tex">
+
+    <button class="add">Add-Item</button>
+
+    <script>
+        const list = document.querySelector('.list')
+        const add = document.querySelector('.add')
+        const text = document.querySelector('#tex')
+
+        
+
+        add.addEventListener('click', function(){
+            var stor = document.createElement('li');
+            stor.textContent =text.value;
+            list.appendChild(stor);
+            text.value = "";
+        })
+
+
+    </script>
+</body>
+</html>

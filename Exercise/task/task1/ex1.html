@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p class="para">There is button here</p>
+    <button id="click-btn">Click Me!</button>
+</body>
+<script>
+    const para = document.querySelector(".para");
+    const btn = document.getElementById("click-btn");
+    var stor = para.textContent;
+    var flg = true;
+    btn.addEventListener('click',function(){
+        if(flg === true){
+            para.textContent = "button is clicked by js";
+            flg = false;
+        }
+        else{
+            para.textContent = stor;
+            flg = true;
+        }
+        
+    })
+    
+</script>
+</html>

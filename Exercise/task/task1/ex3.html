@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #click-btn{
+            width: 130px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <button id="click-btn">Hide!</button>
+    <p class="para">There is para here to hide it</p>
+    
+</body>
+<script>
+    const para = document.querySelector(".para");
+    const btn = document.getElementById("click-btn");
+
+    var flg = true;
+
+    btn.addEventListener('click',function(){
+
+        if(flg === true){
+            para.style.display = "none";
+            btn.textContent ="Show!";
+            flg = false;
+        }
+        else{
+            para.style.display = "block";
+            btn.textContent ="Hide!";
+            flg = true;
+        }
+
+        
+    })
+    
+</script>
+</html>

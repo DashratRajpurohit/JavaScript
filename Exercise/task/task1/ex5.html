@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .img{
+            width: 50%;
+            height: 65vh;
+        }
+        button{
+            width: 10%;
+            height: 5vh;
+        }
+        .main-img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="img">
+        <img class="main-img">
+    </div>
+    <button class="img1">Image 1</button>
+    <button class="img2">Image 2</button>
+    <script>
+        const div = document.querySelector('.img')
+        const img1 = document.querySelector('.img1')
+        const img2 = document.querySelector('.img2')
+        const main = document.querySelector('.main-img')
+
+        img1.addEventListener('click',function(){
+           main.setAttribute('src',"https://www.autoo.it/ufiles/medium/Tre%20Quarti%20Posteriore%20di%20Porsche%20911%20GT3%20di%20Colore%20Bianco.jpg?t=1730330824231")
+        })
+        img2.addEventListener('click',function(){
+           main.setAttribute('src',"https://media.ed.edmunds-media.com/porsche/911/2025/oem/2025_porsche_911_coupe_gt3-rs_fq_oem_2_1600.jpg")
+        })
+    </script>
+</body>
+</html>
