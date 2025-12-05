@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="main" style="border: 2px solid;text-align: center;height: 30vh;">
+        <h1>id</h1>
+        <h2>tags</h2>
+        <h3>dimension</h3>
+    </div>
+    <br>
+    <button id="loadPostBtn" style="width: 200px; height: 10vh; margin-left: 43%;" >Losd Post</button>
+
+    <div style="border: 2px solid;height: 50vh;">
+        <img src="" alt=""height="100%">
+    </div>
+
+    <script>
+        // API -> data type -> JSON(data type -> object format) -> text format (string) ..
+        // JSON -> data exchange purpose -> between two or more devices and light weighted (faster manner data exchange).
+        // string to object -> JSON.parse(variable_name -> json data)
+        // vice - versa (object to JSON ) -> JSON.stringify(vara_name -> object data).
+
+        // online -> API's ...
+
+        
+        // process -> steps: 1. particular api -> link (request format). -> fetch("link")
+        // 2. response -> data (return) -> make sure -> JSON format.
+
+        // 3. print -< > data (response)
+
+        // methods -> fetch("link")
+        // then((response)=>{response:Json()})
+        // then((data)=>{console.log(data)});
+
+
+        var btn = document.querySelector("#loadPostBtn")
+        var h1 = document.querySelector("h1");
+        var h2 = document.querySelector("h2");
+        var h3 = document.querySelector("h3");
+        var img = document.querySelector("img");
+        var card = document.querySelector(".main");
+        var index = -1;
+        var id = null;
+
+        btn.addEventListener('click', () => {
+
+            setInterval(()=>{
+                fetch("https://dog.ceo/api/breeds/image/random")
+                    .then((response) => response.json())
+                    .then((data) =>{
+                        img.setAttribute("src", data.message)
+                    })
+                    // .catch((error)=>console.log(error))
+            },1000)
+        
+
+            // fetch api ...
+            fetch("https://dummyjson.com/products")
+                .then((response) => response.json())
+                .then((data) => {
+                    // task -> array (arr) -> data store -> one by one index print -> 5s -> setInterval(infinte call) -> clearInterval(id)-> array
+                    var arr = data.products;
+                    id = setInterval(() =>{
+                        ++index
+                    var red = Math.floor(Math.random() * 256);
+                    var green = Math.floor(Math.random() * 256);
+                    var blue = Math.floor(Math.random() * 256);
+
+                    console.log(arr[index]);
+                    h1.textContent = arr[index].id;
+                    h2.textContent = arr[index].tags[0];
+                    h3.textContent = arr[index].dimensions.height;
+                    card.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+                    if (index == 29) {
+                        clearInterval(id);
+                    }
+
+                    }, 1000);
+            console.log(arr);
+            h1.textContent = arr[27].description;
+        })
+    })
+
+    </script>
+</body>
+
+</html>
