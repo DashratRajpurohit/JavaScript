@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        .btn{
+            background-color: rgb(202, 153, 248);
+            border-radius: 15px;
+            border: none;
+            color: rgb(255, 255, 255);
+            width: 20% ;
+            height: 6vh;
+            font-size: 26px;
+            margin-left: 40%;
+            margin-top: 20px;
+        }
+        .card{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .aCard{
+            border: 4px solid rgb(248, 129, 129);
+            border-radius: 20px;
+            width: 30%;
+            height: 50vh;
+            color: aliceblue;
+            text-align: center;
+        }
+        image{
+            width: 100%;
+            height: 60%;
+            border: 2px; 
+        }
+
+    </style>
+</head>
+
+<body>
+   
+    <div class="card"></div>
+    <button class="btn">Click Me</button>
+
+    <script>
+        var btn = document.querySelector(".btn");
+        var para = document.querySelector('p');
+        var container = document.querySelector(".card");
+
+        function createCard(data){
+            console.log(data);
+
+            var div = document.createElement('div');
+            div.classList.add("aCard")
+
+            var img = document.createElement('img');
+            img.setAttribute("src", data.strCategoryThumb)
+            img.classList.add("image")
+
+            var p1 = document.createElement('p');
+            p1.textContent = `id: ${data.idCategory}`
+            var p2 = document.createElement('p');
+            p2.textContent = `meal: ${data.strCategory}`
+            var p3 = document.createElement('p');
+            p3.textContent = `discription: ${data.strCategoryDescription}`;
+
+            div.appendChild(img);
+            div.appendChild(p1);
+            div.appendChild(p2);
+            div.appendChild(p3);
+
+            container.appendChild(div);
+            console.log(div);
+
+            btn.disabled = true;
+
+        }
+
+        function loadApi() {
+            fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    for(let i = 0; i<= 13; i++){
+                        createCard(data.categories[i])
+                    }
+                })
+
+                .catch((error) => {
+                    var img = document.createElement('img');
+                    img.setAttribute("src", "https://static.vecteezy.com/system/resources/previews/031/974/988/non_2x/modern-minimal-of-404-error-page-for-website-404-error-the-page-not-found-with-dead-ghost-concept-cartoon-cut-theme-web-banner-link-to-empty-non-existent-page-workers-repairs-website-vector.jpg");
+
+                    container.appendChild(img);
+                    para.textContent = "check you're given url";
+                    para.style.color = "red";
+                })
+        }
+        btn.addEventListener("click", loadApi);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+
+<body>
+    <p>Hello World</p>
+        <div class="image"></div>
+    <button class=".btn">Click Me!</button>
+    <script>
+        var btn = document.querySelector(".btn");
+        var para = document.querySelector('p');
+        var container = document.querySelector(".image");
+
+        function loadApi() {
+            fetch('https://www.themdb.com/api/json/v1/1/categories.php')
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    para.textContent = data.categories[7].strCategoryDescription;
+                    para.style.color = "red";
+                })
+                .catch((error) => {
+                    var img = document.createElement('img');
+                    img.setAttribute("src", "https://www.themealdb.com/images/category/pork.png");
+
+                    container.appendChild(img);
+                    para.textContent = "check you're given url";
+                    para.style.color = "green";
+                })
+        }
+        btn.addEventListener("click", loadApi);
+    </script>
+</body>
+
+</html>
