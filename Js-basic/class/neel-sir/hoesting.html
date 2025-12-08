@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // //  hoisting is the time b/w a value declared and we acess it
+
+        // const a1=10;   // in script scope and in temprol dedzone till next line
+        // var a2 = 11;   // in global scope and in temproldeadzone till next line 
+        // console.log(a1)
+        // console.log(a2)
+        // let a3 = 12;   // in script scope and in temprol dedzone till next line
+        // console.log(a3)
+
+        // function sum(){
+        //     var n1 = 10;
+        //     var n2 = 15;
+        //     return n1+n2;
+        // }
+
+        // console.log(sum());
+        // {
+        //     const b1 = 11;
+        //     let b2 = sum();
+        //     var b3 = 13;
+        // }
+
+        // console.log("b3: ",b3);
+        // console.log("b1: ",b1);
+        // console.log("b2: ",b2);
+
+        var c1 =10;
+        {
+            var c2 = 11;
+            {
+                let c3 =12;
+                {
+
+                    const c4 =13;
+                    console.log(c1);
+                    console.log(c2);
+                    console.log(c3);
+                    console.log(c4);
+
+                }
+            }
+        }
+
+
+    </script>
+</body>
+</html>
