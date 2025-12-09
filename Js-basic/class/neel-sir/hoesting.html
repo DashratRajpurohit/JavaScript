@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
         // //  hoisting is the time b/w a value declared and we acess it
@@ -33,24 +35,103 @@
         // console.log("b1: ",b1);
         // console.log("b2: ",b2);
 
-        var c1 =10;
-        {
-            var c2 = 11;
-            {
-                let c3 =12;
-                {
+        // var c1 =10;
+        // {
+        //     var c2 = 11;
+        //     {
+        //         let c3 =12;
+        //         {
+        // laxigel scope
+        //             const c4 =13;
+        //             console.log(c1);
+        //             console.log(c2);
+        //             console.log(c3);
+        //             console.log(c4);
 
-                    const c4 =13;
-                    console.log(c1);
-                    console.log(c2);
-                    console.log(c3);
-                    console.log(c4);
+        //         }
+        //     }
+        // }
 
+        // console.log("a1:",a1);
+        // let a2 = 12;
+        // const a3 = 13;
+        // {
+        //     var a1 = 11;
+        //     var a4 = 22;
+        //     let a6 = 14;
+        // }
+        // function sum(){
+        //     let a5 = 12;
+        //     return a4+a5;
+        // }
+        // sum();
+        // console.log("a1: ",a1);
+        // console.log("a2: ",a2);
+        // console.log("a3: ",a3);
+        // console.log("a4: ",a4);
+        // console.log("a5: ",a5);
+
+
+        // shodoing
+
+        // let a= 10;
+
+        // function check(){
+        //     let a = 12;
+        //     console.log("in function:",a);
+        // }
+
+        // {
+        //     let a=12;
+        //     console.log("in block:",a);
+        // }
+
+        // check();
+        // console.log("in global:",a);
+
+        // for(const i =1;i<=5;i++){
+        //     console.log(i);
+        // }                              
+        //     console.log(i);         
+
+
+        // closers
+        // function a1() {
+        //     var n1 = 10;
+        //     console.log(n1);
+        //     function a2() {
+        //         var n2 = 10;
+        //         console.log(n2);
+        //         function a3() {
+        //             var n3 = 10;
+        //             console.log(n3);
+        //         }
+        //         a3();
+        //     }
+        //     a2();
+        // }
+        // a1();
+
+        function a1() {
+            var n1 = 10;
+            console.log(n1);
+            function a2() {
+                var n2 = 20;
+                console.log(n2);
+                function a3() {
+                    var n3 = 30;
+                    console.log(n1, n2, n3);
                 }
+                return a3;
             }
+            return a2;
         }
 
+        var c1 = a1();
+        var c2 = c1();
+        c2();
 
     </script>
 </body>
+
 </html>
