@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="text">
+    <button class="btn">click</button>
+    <h1 class="para"></h1>
+    
+
+    <script>
+        var btn = document.querySelector('.btn')
+        var para = document.querySelector(".para");
+        var input = document.querySelector(".text");
+
+        function loadpara() {
+
+            try{
+                if(input.value.length>1) throw "Only one Charecter is Allowed";
+
+                if(input.value>="A" && input.value<="Z") throw "Capital Charecter is Not Allowed";
+
+                if(input.value>="0" && input.value<="9") throw "Number is Not Allowed";
+                
+                console.log(input.value);
+                para.textContent = input.value;
+                para.style.color ="green";
+            }
+            catch(error){
+                console.log(error)
+                para.textContent = error;
+                para.style.color ="red";
+            }
+            finally{
+                input.value ="";
+            }
+           
+        }        
+        btn.addEventListener('click',loadpara);        
+    </script>
+</body>
+
+</html>
