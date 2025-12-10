@@ -4,21 +4,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body{
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        }
-    </style>
+    <title>SkyCast Weather</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <input type="text" class="text">
-    <button class="btn">click</button>
-    <h1 class="para"></h1>
-    <img src="" alt="">
-    
-    <script src="index.js"></script>
+    <header>
+        <div class="logo">
+            <span>🌦️</span> SkyCast
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-text" placeholder="Enter city name..." value="London">
+            <button class="search-btn">Search</button>
+        </div>
+    </header>
 
+    <main>
+        <div id="error-msg" class="error-message"></div>
+        <div id="loading" class="loading">Loading...</div>
+
+        <div class="weather-dashboard">
+            <div class="location-header">
+                <h2 class="location-name">London, UK</h2>
+                <p class="location-time">Monday, 10:00 AM</p>
+            </div>
+
+            <div class="weather-content">
+               
+                <div class="current-weather">
+                    <img src="" alt="Weather Icon" class="weather-icon">
+                    <div class="temp-container">
+                        <span class="temperature">--</span>
+                        <span class="unit">°C</span>
+                    </div>
+                    <div class="condition">--</div>
+                    <p class="feels-like">Feels like <span class="feels-val">--</span>°C</p>
+                </div>
+
+                
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <h3>Humidity</h3>
+                        <p class="detail-value humidity-val">--</p>
+                        <span class="detail-unit">%</span>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Wind Speed</h3>
+                        <p class="detail-value wind-val">--</p>
+                        <span class="detail-unit">km/h</span>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Pressure</h3>
+                        <p class="detail-value pressure-val">--</p>
+                        <span class="detail-unit">mb</span>
+                    </div>
+                    <div class="detail-card">
+                        <h3>UV Index</h3>
+                        <p class="detail-value uv-val">--</p>
+                        <span class="detail-unit">of 10</span>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Visibility</h3>
+                        <p class="detail-value visibility-val">--</p>
+                        <span class="detail-unit">km</span>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Air Quality (PM2.5)</h3>
+                        <p class="detail-value aqi-val">--</p>
+                        <span class="detail-unit">µg/m³</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SkyCast Weather. Powered by WeatherAPI.</p>
+    </footer>
+
+    <script src="index.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>API Playground — Demos</title>
+  <style>
+    :root{
+      --bg:#0f1720;           /* deep navy */
+      --card:#0b1220;         /* card bg */
+      --muted:#9aa4b2;
+      --accent1:#6ee7b7;      /* mint */
+      --accent2:#60a5fa;      /* sky */
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.03);
+      --glass-border: rgba(255,255,255,0.06);
+      --radius:14px;
+      --fw-bold:700;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: dark;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100%;
+      background:
+        radial-gradient(800px 400px at 10% 10%, rgba(96,165,250,0.06), transparent 8%),
+        radial-gradient(700px 300px at 90% 90%, rgba(110,231,183,0.04), transparent 10%),
+        var(--bg);
+      color: #e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:1100px;
+      margin:auto;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .logo{
+      width:54px;
+      height:54px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent2),var(--accent1));
+      display:grid;
+      place-items:center;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+      flex:0 0 54px;
+    }
+
+    .logo svg{width:26px;height:26px;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.45))}
+
+    h1{font-size:18px;margin:0;letter-spacing:-0.2px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    .controls{display:flex;gap:10px;align-items:center}
+
+    .btn{
+      appearance:none;
+      border:1px solid var(--glass-border);
+      background:linear-gradient(180deg,var(--glass),var(--glass-2));
+      color:inherit;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      font-size:13px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn:focus{outline:2px solid rgba(96,165,250,0.18); outline-offset:2px}
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent2),var(--accent1));
+      color:#04202b;
+      border:none;
+      box-shadow: 0 8px 30px rgba(6,22,40,0.45);
+    }
+
+    /* main grid */
+    main.card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:22px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .card-item{
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:18px;
+      min-height:140px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      border: 1px solid rgba(255,255,255,0.03);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card-item:hover{ transform: translateY(-6px); box-shadow: 0 18px 50px rgba(2,6,23,0.6) }
+
+    .card-top{ display:flex; gap:12px; align-items:center }
+    .icon{
+      width:44px;height:44px;border-radius:10px;
+      display:grid;place-items:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      flex:0 0 44px;
+    }
+
+    h3{margin:0;font-size:15px}
+    .muted{ color:var(--muted); font-size:13px; margin-top:6px }
+
+    .card-actions{
+      display:flex; gap:8px; align-items:center; margin-top:10px;
+    }
+
+    .cta{
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:9px;
+      font-weight:600;
+      background:transparent;
+      border:1px solid rgba(255,255,255,0.04);
+      color:inherit;
+      transition:all .15s ease;
+      font-size:13px;
+    }
+    .cta:hover{ transform:translateY(-3px); box-shadow: 0 8px 24px rgba(2,6,23,0.45) }
+    .cta.primary{ background:linear-gradient(90deg,var(--accent2),var(--accent1)); border:none; color:#04202b }
+
+    footer{ margin-top:18px; color:var(--muted); font-size:13px; text-align:center }
+
+    /* responsive */
+    @media (max-width:980px){ .grid{ grid-template-columns: repeat(2,1fr) } }
+    @media (max-width:640px){
+      body{ padding:18px }
+      .grid{ grid-template-columns: 1fr }
+      header{ flex-direction:column; align-items:flex-start; gap:10px }
+      .controls{ width:100%; justify-content:space-between }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">
+          <!-- API-ish molecule icon -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M7 7a3 3 0 100-6 3 3 0 000 6zM7 21a3 3 0 100-6 3 3 0 000 6zM17 14a3 3 0 100-6 3 3 0 000 6z" fill="#04202b" opacity="0.95"/>
+            <path d="M8.5 6.5L15 10.5M8.5 17.5L15 13.5" stroke="#04202b" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" opacity="0.9"/>
+          </svg>
+        </div>
+
+        <div>
+          <h1>API Playground</h1>
+          <p class="lead">Quick demos & experiments — News, Images, Weather</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="infoBtn" title="About this playground" aria-label="About">About</button>
+        <button class="btn primary" id="themeToggle" aria-pressed="false" aria-label="Toggle theme">Toggle Theme</button>
+      </div>
+    </header>
+
+    <main class="card" role="main" aria-labelledby="gridTitle">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <strong id="gridTitle">API Demos</strong>
+          <div class="muted" style="margin-top:6px">Open any demo to see a minimal client-side implementation. Keep API keys on the server.</div>
+        </div>
+        <div style="color:var(--muted);font-size:13px">Local demos • Client-only</div>
+      </div>
+
+      <div class="grid" role="list" aria-label="List of API demos">
+        <!-- News API -->
+        <article class="card-item" role="listitem" aria-labelledby="newsTitle">
+          <div>
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">
+                <!-- newspaper icon -->
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="4" width="14" height="16" rx="2" fill="rgba(255,255,255,0.06)"/>
+                  <path d="M7 8h6M7 12h10M7 16h10" stroke="white" stroke-opacity="0.86" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div>
+                <h3 id="newsTitle">News API</h3>
+                <div class="muted">Fetch headlines, excerpts, and sources — great for a news feed.</div>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <a class="cta primary" href="/Exercise/API/Class-Task/index.html" role="button">Open News Demo</a>
+              <a class="cta" href="#" onclick="alert('Tip: proxy your API key through a server for production.'); return false;">Docs tip</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Image API -->
+        <article class="card-item" role="listitem" aria-labelledby="imageTitle">
+          <div>
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">
+                <!-- image icon -->
+                <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="5" width="18" height="14" rx="2" fill="rgba(255,255,255,0.03)" />
+                  <circle cx="9" cy="10" r="1.6" fill="white" fill-opacity="0.88" />
+                  <path d="M21 19l-6-6-4 4-4-4-3 3" stroke="white" stroke-opacity="0.9" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <h3 id="imageTitle">Image API</h3>
+                <div class="muted">Search, display, and lazy-load images from image providers.</div>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <a class="cta primary" href="/Exercise/API/project-2/Index.html" role="button">Open Image Demo</a>
+              <a class="cta" href="#" onclick="alert('Tip: use pagination and lazy loading for performance.'); return false;">Performance tip</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Weather API -->
+        <article class="card-item" role="listitem" aria-labelledby="weatherTitle">
+          <div>
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">
+                <!-- cloud / sun icon -->
+                <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 15a4 4 0 010-8 5 5 0 019.9 1.2A3.5 3.5 0 0118.5 15H6z" fill="rgba(255,255,255,0.06)"/>
+                  <circle cx="17" cy="6" r="2.2" fill="white" fill-opacity="0.88"/>
+                </svg>
+              </div>
+              <div>
+                <h3 id="weatherTitle">Weather API</h3>
+                <div class="muted">Current conditions and forecast — ideal for local widgets.</div>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <a class="cta primary" href="/Exercise/API/Pro-1/weather-api/index.html" role="button">Open Weather Demo</a>
+              <a class="cta" href="#" onclick="alert('Tip: cache responses to avoid rate limits.'); return false;">Caching tip</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <footer>
+        Built for quick demos • Keep API keys server-side • Press <strong>About</strong> for tips
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // small UI behavior: theme toggle (light/dark) without external libs
+    (function(){
+      const toggle = document.getElementById('themeToggle');
+      const info = document.getElementById('infoBtn');
+
+      function applyLight(){
+        document.documentElement.style.setProperty('--bg','#f6f8fb');
+        document.documentElement.style.setProperty('--card','#ffffff');
+        document.documentElement.style.setProperty('--muted','#55606a');
+        document.documentElement.style.setProperty('--glass','rgba(2,6,23,0.03)');
+        document.documentElement.style.setProperty('--glass-2','rgba(2,6,23,0.02)');
+        document.documentElement.style.setProperty('--glass-border','rgba(2,6,23,0.06)');
+        document.documentElement.style.setProperty('color-scheme','light');
+        document.body.style.color = '#071422';
+        toggle.setAttribute('aria-pressed','true');
+      }
+      function applyDark(){
+        document.documentElement.style.setProperty('--bg','#0f1720');
+        document.documentElement.style.setProperty('--card','#0b1220');
+        document.documentElement.style.setProperty('--muted','#9aa4b2');
+        document.documentElement.style.setProperty('--glass','rgba(255,255,255,0.04)');
+        document.documentElement.style.setProperty('--glass-2','rgba(255,255,255,0.03)');
+        document.documentElement.style.setProperty('--glass-border','rgba(255,255,255,0.06)');
+        document.documentElement.style.setProperty('color-scheme','dark');
+        document.body.style.color = '#e6eef6';
+        toggle.setAttribute('aria-pressed','false');
+      }
+
+      // start dark
+      let light = false;
+      toggle.addEventListener('click', () => {
+        light = !light;
+        if(light) applyLight(); else applyDark();
+      });
+
+      info.addEventListener('click', () => {
+        alert('Pro tips:\\n• Never expose API keys in client JS.\\n• Proxy calls through your server.\\n• Cache responses and paginate.\\n• Handle rate limits & errors gracefully.');
+      });
+
+      // small accessibility: keyboard focus visible
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Tab') document.body.classList.add('show-focus');
+      });
+
+      // initial state
+      applyDark();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Insight - News API</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+        }
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li {
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li:hover {
+            color: #4f46e5;
+        }
+
+        .container {
+            padding: 60px 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .container h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .container p {
+            max-width: 600px;
+            line-height: 1.6;
+            margin: 0 auto 30px;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+
+        #Btn {
+            margin-top: 20px;
+            width: 200px;
+            background: white;
+            color: #4f46e5;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #Btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #Btn:active {
+            transform: translateY(0);
+        }
+
+        .main {
+            padding: 50px 30px;
+            min-height: 100vh;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .parent {
+            display: none;
+        }
+
+        .div6 {
+            display: none;
+        }
+
+        .div7 {
+            display: none;
+        }
+
+        .div8 {
+            display: none;
+        }
+
+        .div9 {
+            display: none;
+        }
+
+        .div10 {
+            display: none;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            animation: slideIn 0.5s ease forwards;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(n+4) { animation-delay: 0.4s; }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            z-index: 1;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(79, 70, 229, 0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            display: -webkit-box;
+            /* -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical; */
+            overflow: hidden;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            display: -webkit-box;
+            /* -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical; */
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .card-source {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .card-link {
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card-link:hover {
+            opacity: 0.9;
+        }
+
+        .card-date {
+            font-size: 12px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #6b7280;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">📰 Daily Insight</div>
+        <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Stay Informed with Latest News</h2>
+        <p>
+            Discover breaking news, trending stories, and important updates from around the world. 
+            Get reliable news that matters to you.
+        </p>
+        <button id="Btn">Load News Articles</button>
+    </div>
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Loading news articles...</p>
+    </div>
+
+    <div class="main">
+        <div class="cards-container" id="cardsContainer">
+           
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
