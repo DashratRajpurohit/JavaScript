@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stocks</title>
+</head>
+
+<body>
+    <input type="text" class="input">
+    <button class="btn">Stocks</button>
+    <div class="main"></div>
+
+    <script>
+        const input = document.querySelector(".input");
+        const btn = document.querySelector(".btn");
+        const h1 = document.querySelector("h1");
+        const h2 = document.querySelector("h2");
+        const div = document.querySelector(".main");
+
+        function RGB() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function loadApi() {
+            div.innerHTML = ""
+            fetch(`https://api.mfapi.in/mf/search?q=${input.value}`)
+                .then((responce) => responce.json())
+                .then((data) => {
+                    for (let i = 0; i < data.length; i++) {
+                        console.log(data[i])
+                        setTimeout(() => {
+                            let h1 = document.createElement('h1');
+                            let h2 = document.createElement('h2');
+                            h1.textContent = data[i].schemeCode;
+                            h2.textContent = data[i].schemeName;
+                            h1.style.color = RGB();
+                            h2.style.color = RGB();
+                            div.appendChild(h1);
+                            div.appendChild(h2);
+                        }, 500 * i);
+                    }
+                    input.value ="";
+                })
+        }
+
+        btn.addEventListener('click', loadApi);
+
+    </script>
+</body>
+
+</html>
