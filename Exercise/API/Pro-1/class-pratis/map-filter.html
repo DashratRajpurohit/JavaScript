@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = [20,5,55,64,52,62,87];
+        
+
+                                                         // foreach
+        // var arr2 = [];
+        // arr.forEach((data,index)=>{
+        //     arr2[index] = data*2;
+        // })
+        // console.log(arr2)
+
+
+                                                     // // Mape 
+
+        // var b = arr.map((data)=>data*2);
+
+        // console.log(b);
+
+                                                   // filter
+
+        // var arr2= [
+        //     {user:"dash",age:8},
+        //     {user:"ansu",age:23},
+        //     {user:"moti",age:18},
+        // ]
+
+        // var c = arr2.map((data)=>data.age>18)0;
+
+        // console.log(c);
+
+                                                          // Reduce
+
+        // var d = arr.reduce((curr,next)=>curr+next,0);
+
+        // console.log(d);
+
+                                                    // for-in & for-of
+
+        // for(var index in arr){
+        //     console.log("in=  "+arr[index]);
+        // }
+
+        // for(var value of arr){
+        //     console.log("of=  "+value);
+        // }
+
+        // var obj1 = {
+        //     user: "mohit",
+        //     age:46,
+        //     phonenum:[645547987,89+754548,286462481],
+        // };
+
+        // for(let key in obj1){
+        //     console.log(key+ " -> "+obj1[key])
+        // }
+
+        var obj1 = {
+            user:"",
+            age:46,
+            phonenum:12333225,
+        };
+
+        console.log(Object.keys(obj1));
+
+        let arrkey = []
+
+        for(let key in obj1){
+            arrkey.push(key)
+        } 
+        console.log(arrkey)
+        console.log(arrkey.length)
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: cadetblue;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 20px;
+        }
+
+        .card {
+            border: 2px solid rgb(71, 71, 71);
+            border-radius: 15px;
+            background-color: rgb(189, 118, 255);
+            width: 21%;
+            height: 50vh;
+        }
+
+       
+
+        .Btn {
+            width: 16%;
+            height: 5vh;
+            border: none;
+            box-shadow: 5px 5px 20px;
+            font-size: 20px;
+            color: aliceblue;
+            border-radius: 20px;
+            margin: 50px;
+            margin-left: 42%;
+            background: linear-gradient(135deg,rgb(233, 133, 133),rgb(119, 119, 227),pink);
+        }
+    </style>
+</head>
+
+<body>
+    <button class="Btn">Profiles</button>
+    <div class="main">
+
+
+    </div>
+    <script>
+        const btn = document.querySelector(".Btn")
+        const main = document.querySelector(".main")
+        const body = document.querySelector("body")
+
+        function RGB() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function createCard(value) {
+            const card = document.createElement("div");
+            card.className = "card";
+            body.style.backgroundColor = RGB();
+            card.style.background=`linear-gradient(135deg,${RGB()},${RGB()})`;
+                console.log(value.profile_pic_url)
+            card.innerHTML = `
+                <div style="width: 100%;height: 50%;">
+                <img src="${value.profile_pic_url}" alt="" width="100%">
+                 </div>
+                <div style="width: 100%;height: 50%;text-align: center;">
+                <h3 style="display: inline-block;">Username: </h3><h3 style="display: inline-block;">${value.username}</h3><br>
+                <h4 style="display: inline-block;">Full Name: </h4><h4 style="display: inline-block;">${value.full_name}</h4><br>
+                <h4 style="display: inline-block;">ID: </h4><h4 style="display: inline-block;">${value.id}</h4>
+                </div>
+            `
+            return card;
+        }
+
+        function profile(value) {
+            // console.log(value)
+
+            const card = createCard(value);
+            main.appendChild(card);
+
+        }
+
+        function loadApi() {
+            fetch('https://instagram-looter2.p.rapidapi.com/search?query=javan&select=users&rapidapi-key=146abed4a5msh930817f01a74499p1ce36ajsn4138ad14a315')
+                .then((response) => response.json())
+                .then((data) => {
+                    for (let i = 0; i < 56; i++) {
+                        // console.log(data.users[i].user)
+                        setTimeout(() => {
+                            profile(data.users[i].user)
+                            
+                        }, 500 * i)
+                    }
+                })
+        }
+
+        btn.addEventListener('click', loadApi)
+    </script>
+</body>
+
+</html>

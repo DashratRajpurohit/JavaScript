@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Netflix-like Header & Footer</title>
+    <style>
+        /* ---------- variables ---------- */
+        :root {
+            --bg: #141414;
+            --panel: #1f1f1f;
+            --muted: #b3b3b3;
+            --accent: #e50914;
+            --glass: rgba(255, 255, 255, 0.04);
+            --max-width: 1200px;
+        }
+
+        /* ---------- base reset ---------- */
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+            background: var(--bg);
+            color: #fff;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        /* ---------- header ---------- */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.90), rgba(20, 20, 20, 0.80));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .header-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 12px 18px;
+            align-items: center;
+        }
+
+        /* logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 110px;
+        }
+
+        .logo .netflix-mark {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+
+        .logo small {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--muted);
+            opacity: 0.9;
+            margin-top: 2px
+        }
+
+        /* nav links - desktop */
+        .nav {
+            display: flex;
+            gap: 18px;
+            margin-left: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .nav a {
+            padding: 6px 8px;
+            border-radius: 5px;
+            color: #fff;
+            opacity: 0.90
+        }
+
+        .nav a:hover {
+            background: var(--glass)
+        }
+
+        /* spacer pushes controls right */
+        .spacer {
+            flex: 1
+        }
+
+        /* controls (search, kids, notifications, avatar) */
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .search {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search input {
+            width: 220px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #fff;
+            padding: 8px 10px 8px 34px;
+            border-radius: 6px;
+            outline: none;
+            transition: width .18s ease;
+        }
+
+        .search input::placeholder {
+            color: var(--muted);
+            font-weight: 500
+        }
+
+        .search .icon {
+            position: absolute;
+            left: 10px;
+            width: 14px;
+            height: 14px;
+            opacity: 0.9;
+        }
+
+        .search input:focus {
+            width: 300px;
+            border-color: rgba(255, 255, 255, 0.12)
+        }
+
+        .kids {
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--muted)
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #333;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block
+        }
+
+        /* ---------- mobile hamburger (checkbox hack) ---------- */
+        .hamburger-toggle {
+            display: none
+        }
+
+        .hamburger {
+            display: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+        }
+
+        .hamburger .bar {
+            width: 18px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            position: relative
+        }
+
+        .hamburger .bar::after,
+        .hamburger .bar::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px
+        }
+
+        .hamburger .bar::before {
+            top: -6px
+        }
+
+        .hamburger .bar::after {
+            top: 6px
+        }
+
+        /* mobile nav panel */
+        .mobile-nav {
+            display: none;
+            background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(20, 20, 20, 0.98));
+            padding: 12px 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03)
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+            color: #fff
+        }
+
+        /* checkbox toggles nav on small screens */
+        .hamburger-toggle:checked~.mobile-nav {
+            display: block
+        }
+
+        /* ---------- footer ---------- */
+        .site-footer {
+            margin-top: 48px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            background: linear-gradient(180deg, #0b0b0b, #070707);
+            color: var(--muted);
+            padding: 48px 18px;
+        }
+
+        .footer-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            margin: 0 0 12px 0;
+            font-size: 0.95rem
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 0.92rem
+        }
+
+        .footer-bottom {
+            max-width: var(--max-width);
+            margin: 28px auto 0 auto;
+            padding: 0 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--muted);
+            font-size: 0.88rem
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px
+        }
+
+        .socials a {
+            opacity: 0.9
+        }
+
+        /* small screens */
+        @media (max-width:880px) {
+            .nav {
+                display: none
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .search input {
+                width: 130px
+            }
+
+            .search input:focus {
+                width: 180px
+            }
+
+            .footer-inner {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width:520px) {
+            .header-inner {
+                padding: 10px
+            }
+
+            .logo .netflix-mark {
+                font-size: 1rem
+            }
+
+            .search {
+                display: none
+            }
+
+            .kids {
+                display: none
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr
+            }
+
+            .avatar {
+                width: 34px;
+                height: 34px
+            }
+        }
+
+        /* small polished touches */
+        .muted-note {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-top: 8px
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="site-header" role="banner">
+        <div class="header-inner">
+            <div class="logo" aria-label="Brand">
+                <div class="netflix-mark">NETFLIX</div>
+                <small>Browse</small>
+            </div>
+
+            <!-- desktop nav -->
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <a href="#" aria-current="page">Home</a>
+                <a href="#">TV Shows</a>
+                <a href="#">Movies</a>
+                <a href="#">Recently Added</a>
+                <a href="#">My List</a>
+            </nav>
+
+            <div class="spacer"></div>
+
+            <!-- controls -->
+            <div class="controls" role="group" aria-label="User controls">
+                <div class="search" role="search" aria-label="Search">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" width="14" height="14" aria-hidden="true"
+                        style="position:relative;z-index:2">
+                        <path d="M21 21l-4.35-4.35" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <circle cx="11" cy="11" r="6" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <input type="search" placeholder="Titles, people, genres" aria-label="Search movies and shows" />
+                </div>
+
+                <div class="kids" title="Kids">KIDS</div>
+
+                <div class="avatar" title="Profile">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces"
+                        alt="Profile avatar">
+                </div>
+
+                <!-- hamburger for mobile (checkbox hack) -->
+                <input class="hamburger-toggle" id="hambToggle" type="checkbox" />
+                <label for="hambToggle" class="hamburger" aria-hidden="true" title="Menu">
+                    <div class="bar"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- mobile nav panel (visible when checkbox is checked) -->
+        <div class="mobile-nav" role="navigation" aria-label="Mobile navigation">
+            <a href="#">Home</a>
+            <a href="#">TV Shows</a>
+            <a href="#">Movies</a>
+            <a href="#">Recently Added</a>
+            <a href="#">My List</a>
+            <a href="#">Account</a>
+            <a href="#">Help Center</a>
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT (demo spacer) -->
+    <main style="max-width:var(--max-width);margin:36px auto;padding:0 18px;">
+        <section style="min-height:360px;display:flex;align-items:center;justify-content:center;color:var(--muted);">
+            <div style="text-align:center;">
+                <h1 style="margin:0 0 12px 0;font-size:28px">Example hero</h1>
+                <p style="margin:0;color:var(--muted)">This area is just a placeholder to show header/footer spacing.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>Company</h4>
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">Jobs</a>
+                    <a href="#">Press</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <div class="footer-links">
+                    <a href="#">Gift Cards</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Help Center</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <div class="footer-links">
+                    <a href="#">Cookies</a>
+                    <a href="#">Security</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Legal Notices</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="muted-note">© <span id="year"></span> NETFLIX-LIKE UI. All rights reserved.</div>
+            <div style="display:flex;gap:14px;align-items:center">
+                <div class="socials" aria-hidden="true">
+                    <!-- simple SVG icons -->
+                    <a href="#" title="Twitter" aria-label="Twitter">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                                fill="currentColor" />
+                        </svg>
+                    </a>
+                    <a href="#" title="Facebook" aria-label="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path
+                                d="M22 12a10 10 0 1 0-11.5 9.9v-7H8.7v-2.9h1.8V9.2c0-1.8 1-2.8 2.6-2.8.8 0 1.6.1 1.6.1v1.8h-.9c-.9 0-1.2.6-1.2 1.2v1.5h2l-.3 2.9h-1.7v7A10 10 0 0 0 22 12"
+                                fill="currentColor" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div style="font-size:0.88rem;color:var(--muted)">English</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // small nicety: set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
