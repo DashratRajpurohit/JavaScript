@@ -6,3 +6,7 @@ for(let i=0;i<arr.length;i++){
    }
 }
 console.log(max);
+
+let res = Math.min(...arr);
+
+console.log("sprad "+res);
