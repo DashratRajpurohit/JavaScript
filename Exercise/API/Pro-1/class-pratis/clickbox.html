@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: cadetblue;
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 20px;
+        }
+
+        h4 {
+            margin: 0;
+        }
+
+        h3 {
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+            color: aliceblue;
+        }
+        .card {
+            border: 2px solid rgb(71, 71, 71);
+            border-radius: 15px;
+            background-color: rgb(189, 118, 255);
+            width: 21%;
+            color: aliceblue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 50vh;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" name="" id="click-box">
+    <div class="main"></div>
+
+    <script>
+        const cBox = document.querySelector("#click-box");
+
+        const main = document.querySelector(".main")
+        const body = document.querySelector("body")
+
+        function RGB() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function createCard(value) {
+            const card = document.createElement("div");
+            card.className = "card";
+            body.style.backgroundColor = RGB();
+            card.style.background = `linear-gradient(135deg,${RGB()},${RGB()})`;
+            console.log(value.profile_pic_url)
+            card.innerHTML = `
+                <div style="width: 80%;height: 50%;">
+                <img src="${value.review_author_avatar}" style="border-radius: 50%; overflow: hidden;" alt="" width="100%">
+                 </div>
+                <div style="width: 100%;height: 50%;text-align: center;display: flex;flex-direction:column;justify-content: center;">
+                <h3 style="display: inline-block;">ID: ${value.review_id}</h3>
+                <h4 style="display: inline-block;">Title: ${value.review_title}</h4>
+                <h4 style="display: inline-block;">Rating: ${value.review_star_rating}</h4>
+                <h4 style="display: inline-block;">Links:<a href=" ${value.review_link}">Load More</a></h4>
+                </div>
+            `
+            return card;
+        }
+
+        function profile(value) {
+            console.log(value)
+            if(value.review_date.includes("October")){
+                const card = createCard(value);
+                main.appendChild(card);
+            }
+            
+        }
+
+        function loadApi() {
+            fetch('https://real-time-amazon-data.p.rapidapi.com/top-product-reviews?asin=B07ZPKN6YR&country=US&rapidapi-key=146abed4a5msh930817f01a74499p1ce36ajsn4138ad14a315')
+                .then((response) => response.json())
+                .then((data) => {
+                    for (let i = 0; i < 8; i++) {
+                        console.log(data.data)
+                        setTimeout(() => {
+                            profile(data.data.reviews[i])
+
+                        }, 500 * i)
+                    }
+                })
+        }
+
+        cBox.addEventListener("change", (event) => {
+            if (event.target.checked) {
+                console.log("clicked");
+                loadApi();
+            }
+            else (
+                console.log("unclicked")
+            )
+        })
+    </script>
+</body>
+
+</html>
