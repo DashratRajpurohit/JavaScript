@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="box">User</button>
+    <button id="box2">email</button>
+    <button id="box3">Display</button>
+    <button id="box4">Expire</button>
+    <script>
+        const box = document.querySelector("#box");
+        const box2 = document.querySelector("#box2");
+        const box3 = document.querySelector("#box3");
+        const Expire = document.querySelector("#box4");
+
+        
+        box.addEventListener("click", (event) => {
+            // if (event.target.checked) {
+                document.cookie = `userName = Dashrat-007; expires= Mon, 15 Dec 2025 12:00:00 UTC; Path=/`;
+                console.log(document.cookie);
+            // }
+            // else{
+            //     console.log("nothing to store in the cokies");
+            // }
+        })
+        box2.addEventListener("click", (event) => {
+            // if (event.target.checked) {
+                document.cookie = `emailId = dashrat@gmail.com; expires= Mon, 15 Dec 2025 12:00:00 UTC; Path=/`;
+                console.log(document.cookie);
+            // }
+            // else{
+            //     console.log("nothing to store in the cokies");
+            // }
+        })
+        let char =document.cookie.split("; ")
+        box3.addEventListener('click',()=>{
+            alert(char[0].split("=")[1]);
+            alert(char[1].split("=")[1]);
+        })
+        Expire.addEventListener('click',()=>{
+           document.cookie = `emailId = dashrat@gmail.com; expires= Mon, 15 Dec 2023 12:00:00 UTC; Path=/`;
+        })
+
+    </script>
+</body>
+
+</html>
