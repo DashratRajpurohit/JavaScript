@@ -20,7 +20,7 @@
         function main(data){
             dashboard.style.display = "block"
             img.setAttribute("src", data.current.condition.icon);
-            locationName.textContent = data.location.region;
+            locationName.textContent = `${data.location.name}, ${data.location.region}, ${data.location.country}`;
             locationTime.textContent = data.location.localtime;
             temperature.textContent = data.current.temp_c;
             condition.textContent = data.current.condition.text;
@@ -47,6 +47,7 @@
                     },2000);
                     
                 })
+                
            
         }        
         btn.addEventListener('click',loadpara); 
