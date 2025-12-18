@@ -1,24 +1,10 @@
-
-function mix(x){
-
-    let name = "Dashrat";
-    const age = 18;
-    var sub = "maths";
-
-    console.log (x);
-    return x;
+function greet(){
+    console.log("Hello World");
 }
-console.log (sub);
 
+greet();
 
-let name = "Dashrat";
-const age = 18;
-var sub = "maths";
-
-console.log (name,age , sub);
-
-mix(name);
-mix(age);
-mix(sub);
-
-
+let sum = (n1,n2) => {
+    return n1+n2;
+}
+console.log(sum(50,66));
