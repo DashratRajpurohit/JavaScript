@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            display: grid;
+            /* grid-template-columns: 300px 45% 250px;
+            grid-template-rows: 200px 200px 200px; */
+
+            /* grid-template-columns: repeat(2, 150px) 1fr;
+            grid-template-rows: 300px repeat(2, 200px); */
+
+            /* grid-template-columns: 150px 150px minmax(200px, auto);
+            grid-template-rows: 200px 200px 200px;
+            gap: 10px 8px; */
+
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 250px);
+            grid-auto-rows: 250px;
+            margin: 20px;
+
+            gap: 20px 20px;
+            /* gap: row column; */
+        }
+
+        p {
+            border: 5px solid navy;
+            background-color: rgb(185, 112, 254);
+            color: aliceblue;
+            font-size: 30px;
+            text-align: center;
+            border-radius: 25px;
+            background-image: url(https://wallpaperaccess.com/full/4299503.jpg);
+            background-position: center;
+            background-size: cover;
+        }
+
+
+        .box1 {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
+        .box2 {
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .box3 {
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 2;
+            grid-row-end: 4;
+        }
+
+        .box4 {
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+
+        .box5 {
+            grid-column-start: 2;
+            grid-column-end: 4;
+            grid-row-start: 3;
+            grid-row-end: 4;
+        }
+
+        .box6 {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
+        .box7 {
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .box8 {
+            grid-column-start: 1;
+            grid-column-end: 2;
+        }
+
+        .box9 {
+            grid-column-start: 2;
+            grid-column-end: 4;
+        }
+
+        @media screen and (min-width:481px) and (max-width:768px) {
+            .box3 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 2;
+                grid-row-end: 3;
+            }
+
+            .box4 {
+                grid-column-start: 1;
+                grid-column-end: 2;
+                grid-row-start: 3;
+                grid-row-end: 4;
+            }
+
+
+            .box6 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            .box7 {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+
+            .box8 {
+                grid-column-start: 3;
+                grid-column-end: 4;
+            }
+
+            .box9 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+        }
+
+        @media screen and (max-width:480px) {
+            .box1 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            .box2 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            .box3 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 3;
+                grid-row-end: 4;
+            }
+
+            .box4 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 4;
+                grid-row-end: 5;
+            }
+
+            .box5 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 5;
+                grid-row-end: 6;
+            }
+            .box6 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            .box7 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            .box8 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+
+            .box9 {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <p class="box1">box1</p>
+        <p class="box2">box2</p>
+        <p class="box3">box3</p>
+        <p class="box4">box4</p>
+        <p class="box5">box5</p>
+        <p class="box6">box6</p>
+        <p class="box7">box7</p>
+        <p class="box8">box8</p>
+        <p class="box9">box9</p>
+    </div>
+</body>
+
+</html>
