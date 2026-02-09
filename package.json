@@ -5,5 +5,8 @@
   "scripts": {
     "build": "echo \"Build complete\"",
     "test": "echo \"No tests specified\""
-  }
+  },
+  "keywords": ["javascript"],
+  "author": "",
+  "license": "ISC"
 }
