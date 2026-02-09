@@ -1,12 +1,1 @@
-{
-  "name": "javascript",
-  "version": "1.0.0",
-  "description": "JavaScript learning repository",
-  "scripts": {
-    "build": "echo \"Build complete\"",
-    "test": "echo \"No tests specified\""
-  },
-  "keywords": ["javascript"],
-  "author": "",
-  "license": "ISC"
-}
+{"name":"javascript","version":"1.0.0","description":"JavaScript learning repository","scripts":{"build":"echo \"Build complete\"","test":"echo \"No tests specified\""},"keywords":["javascript"],"author":"","license":"ISC"}
