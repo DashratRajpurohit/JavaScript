@@ -1,1 +1,9 @@
-{\n  "name": "javascript",\n  "version": "1.0.0",\n  "description": "JavaScript learning repository",\n  "scripts": {\n    "build": "echo \"Build complete\"",\n    "test": "echo \"No tests specified\""\n  },\n  "keywords": ["javascript"],\n  "author": "",\n  "license": "ISC"\n}
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "JavaScript learning repository",
+  "scripts": {
+    "build": "echo \"Build complete\"",
+    "test": "echo \"No tests specified\""
+  }
+}
