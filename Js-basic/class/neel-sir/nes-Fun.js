@@ -3,10 +3,10 @@ function one(){
     num = 1;
     clg(num);
     function Two(){
-        num=s;
+        num = 10;
         clg(num);
         function Three(){
-            num = 10;
+            num = 45;
             clg(num);
         }
     }

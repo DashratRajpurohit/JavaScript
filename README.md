@@ -137,13 +137,3 @@ Hoisting/TDZ traps beginners constantly
 🔥 A 10-Second Definition (Interview Version)
 
 “JavaScript is a high-level, dynamic, prototype-based scripting language primarily used for web development. It supports functional and object-oriented programming, operates on a single-threaded event loop, and enables interactive browser behavior as well as server-side development via Node.js.”
-
-If you want, I can also give you:
-
-JS roadmap (what to learn first, second, third)
-
-Beginner → Pro plan
-
-Practice questions
-
-Mini projects to actually build skills
