@@ -1,4 +1,4 @@
-What JavaScript Really Is
+What JavaScript Really Is-
 
 JavaScript is a dynamic, interpreted, prototype-based language used to build everything from simple scripts to full applications (web, mobile, backend, desktop).
 It’s flexible but easy to screw up if you don’t understand the fundamentals.
